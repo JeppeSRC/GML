@@ -217,6 +217,53 @@ _vec4<double>& _vec4<double>::Div(_vec4<double> other) {
 
 #pragma region int32
 
+#ifndef GML_VECE4I_NO_SSE
+
+_vec4<int>& _vec4<int>::Add(_vec4<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*)&x);
+	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+
+	__m128i res = _mm_add_epi32(v1, v2);
+
+	_mm_store_si128((__m128i*)&x, res);
+
+	return *this;
+}
+
+_vec4<int>& _vec4<int>::Sub(_vec4<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*)&x);
+	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+
+	__m128i res = _mm_sub_epi32(v1, v2);
+
+	_mm_store_si128((__m128i*)&x, res);
+
+	return *this;
+}
+
+_vec4<int>& _vec4<int>::Mul(_vec4<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*)&x);
+	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+
+	__m128i res = _mm_mul_epi32(v1, v2);
+
+	_mm_store_si128((__m128i*)&x, res);
+
+	return *this;
+}
+
+_vec4<int>& _vec4<int>::Div(_vec4<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*)&x);
+	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+
+	__m128i res = _mm_div_epi32(v1, v2);
+
+	_mm_store_si128((__m128i*)&x, res);
+
+	return *this;
+}
+
+#endif
 #pragma endregion
 
 typedef _vec4<float> vec4;
