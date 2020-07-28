@@ -27,20 +27,20 @@ SOFTWARE.
 #include <math.h>
 
 template<typename T>
-class alignas(16) _vec4 {
+class alignas(sizeof(T) * 4) _vec4 {
 public:
 	T x, y, z, w;
 
 	_vec4(T init = 0) : x(init), y(init), z(init), w(init) {}
 	_vec4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
-	_vec4<T>& Add(_vec4<T> other);
-	_vec4<T>& Sub(_vec4<T> other);
-	_vec4<T>& Mul(_vec4<T> other);
-	_vec4<T>& Div(_vec4<T> other);
+	_vec4<T>& Add(_vec4<T> other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
+	_vec4<T>& Sub(_vec4<T> other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
+	_vec4<T>& Mul(_vec4<T> other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
+	_vec4<T>& Div(_vec4<T> other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
 
-	_vec4<T> Normalize() const;
-	T Dot(_vec4<T> other) const;
+	_vec4<T> Normalize() const { float a = sqrt(x * x + y * y + z * z + w * w); return _vec4<float>(x / a, y / a, z / a, w / a); }
+	T Dot(_vec4<T> other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
 
 	inline _vec4<T> operator+(_vec4<T> other) const { return _vec4<T>(*this).Add(other); }
 
@@ -59,7 +59,9 @@ public:
 	inline _vec4<T>& operator/=(_vec4<T> other) { return Div(other); }
 };
 
+
 #pragma region float
+#ifndef GML_VEC4_SSE
 
 _vec4<float> _vec4<float>::Normalize() const {
 	_vec4<float> tmp;
@@ -73,8 +75,6 @@ _vec4<float> _vec4<float>::Normalize() const {
 	res = _mm_div_ps(v, res);
 	
 	_mm_store_ps(&tmp.x, res);
-
-	return tmp;
 }
 
 float _vec4<float>::Dot(_vec4<float> other) const {
@@ -132,6 +132,90 @@ _vec4<float>& _vec4<float>::Div(_vec4<float> other) {
 
 	return *this;
 }
+
+#endif
+
+#pragma endregion
+
+#pragma region double
+
+#ifndef GML_VEC4D_SSE
+
+_vec4<double> _vec4<double>::Normalize() const {
+	_vec4<double> tmp;
+	__m256d v = _mm256_load_pd(&x);
+	__m256d res = _mm256_mul_pd(v, v);
+
+	res = _mm256_hadd_pd(res, res);
+	res = _mm256_hadd_pd(res, res);
+	res = _mm256_sqrt_pd(res);
+
+	res = _mm256_div_pd(v, res);
+
+	_mm256_store_pd(&tmp.x, res);
+
+	return tmp;
+}
+
+double _vec4<double>::Dot(_vec4<double> other) const {
+	__m256d v1 = _mm256_load_pd(&x);
+	__m256d v2 = _mm256_load_pd(&other.x);
+
+	__m256d res = _mm256_mul_pd(v1, v2);
+
+	res = _mm256_hadd_pd(res, res);
+	res = _mm256_hadd_pd(res, res);
+
+	return res.m256d_f64[0];
+}
+
+_vec4<double>& _vec4<double>::Add(_vec4<double> other) {
+	__m256d v1 = _mm256_load_pd(&x);
+	__m256d v2 = _mm256_load_pd(&other.x);
+
+	__m256d res = _mm256_add_pd(v1, v2);
+
+	_mm256_store_pd(&x, res);
+
+	return *this;
+}
+
+_vec4<double>& _vec4<double>::Sub(_vec4<double> other) {
+	__m256d v1 = _mm256_load_pd(&x);
+	__m256d v2 = _mm256_load_pd(&other.x);
+
+	__m256d res = _mm256_sub_pd(v1, v2);
+
+	_mm256_store_pd(&x, res);
+
+	return *this;
+}
+
+_vec4<double>& _vec4<double>::Mul(_vec4<double> other) {
+	__m256d v1 = _mm256_load_pd(&x);
+	__m256d v2 = _mm256_load_pd(&other.x);
+
+	__m256d res = _mm256_mul_pd(v1, v2);
+
+	_mm256_store_pd(&x, res);
+
+	return *this;
+}
+
+_vec4<double>& _vec4<double>::Div(_vec4<double> other) {
+	__m256d v1 = _mm256_load_pd(&x);
+	__m256d v2 = _mm256_load_pd(&other.x);
+
+	__m256d res = _mm256_div_pd(v1, v2);
+
+	_mm256_store_pd(&x, res);
+
+	return *this;
+}
+#endif
+#pragma endregion
+
+#pragma region int32
 
 #pragma endregion
 
