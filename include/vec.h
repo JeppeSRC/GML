@@ -24,4 +24,15 @@ SOFTWARE.
 
 #pragma once
 
+template<typename T>
+constexpr int CalcVecAlignment(int comp) {
+	int vecSize = sizeof(T) * comp;
+
+	return vecSize < 16 ? 16 : (vecSize + 15) & ~15;
+}
+
+#include <intrin.h>
+#include <math.h>
+
 #include "vec4.h"
+#include "vec3.h"

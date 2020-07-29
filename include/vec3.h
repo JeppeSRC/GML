@@ -24,69 +24,68 @@ SOFTWARE.
 
 #pragma once
 
-
 template<typename T>
-class alignas(CalcVecAlignment<T>(4)) _vec4 {
+class alignas(CalcVecAlignment<T>(3)) _vec3 {
 public:
-	T x, y, z, w;
+	T x, y, z;
 
-	_vec4(T init = 0) : x(init), y(init), z(init), w(init) {}
-	_vec4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
+	_vec3(T init = 0) : x(init), y(init), z(init) {}
+	_vec3(T x, T y, T z) : x(x), y(y), z(z) {}
 
-	_vec4<T>& Add(_vec4<T> other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
-	_vec4<T>& Sub(_vec4<T> other) { x -= other.x; y -= other.y; z -= other.z; w -= other.w; return *this; }
-	_vec4<T>& Mul(_vec4<T> other) { x *= other.x; y *= other.y; z *= other.z; w *= other.w; return *this; }
-	_vec4<T>& Div(_vec4<T> other) { x /= other.x; y /= other.y; z /= other.z; w /= other.w; return *this; }
+	_vec3<T>& Add(_vec3<T> other) { x += other.x; y += other.y; z += other.z; return *this; }
+	_vec3<T>& Sub(_vec3<T> other) { x -= other.x; y -= other.y; z -= other.z; return *this; }
+	_vec3<T>& Mul(_vec3<T> other) { x *= other.x; y *= other.y; z *= other.z; return *this; }
+	_vec3<T>& Div(_vec3<T> other) { x /= other.x; y /= other.y; z /= other.z; return *this; }
 
-	_vec4<T>& Add(T other) { x += T; y += T; z += T; w += T; return *this; }
-	_vec4<T>& Sub(T other) { x -= T; y -= T; z -= T; w -= T; return *this; }
-	_vec4<T>& Mul(T other) { x *= T; y *= T; z *= T; w *= T; return *this; }
-	_vec4<T>& Div(T other) { x /= T; y /= T; z /= T; w /= T; return *this; }
+	_vec3<T>& Add(T other) { x += T; y += T; z += T; return *this; }
+	_vec3<T>& Sub(T other) { x -= T; y -= T; z -= T; return *this; }
+	_vec3<T>& Mul(T other) { x *= T; y *= T; z *= T; return *this; }
+	_vec3<T>& Div(T other) { x /= T; y /= T; z /= T; return *this; }
 
 
-	_vec4<T> Normalize() const { float a = sqrt(x * x + y * y + z * z + w * w); return _vec4<T>(x / a, y / a, z / a, w / a); }
-	T Dot(_vec4<T> other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
+	_vec3<T> Normalize() const { float a = sqrt(x * x + y * y + z * z); return _vec3<T>(x / a, y / a, z / a); }
+	T Dot(_vec3<T> other) const { return x * other.x + y * other.y + z * other.z; }
 
-	inline _vec4<T> operator+(_vec4<T> other) const { return _vec4<T>(*this).Add(other); }
-	inline _vec4<T> operator-(_vec4<T> other) const { return _vec4<T>(*this).Sub(other); }
-	inline _vec4<T> operator*(_vec4<T> other) const { return _vec4<T>(*this).Mul(other); }
-	inline _vec4<T> operator/(_vec4<T> other) const { return _vec4<T>(*this).Div(other); }
-	inline _vec4<T>& operator+=(_vec4<T> other) { return Add(other); }
-	inline _vec4<T>& operator-=(_vec4<T> other) { return Sub(other); }
-	inline _vec4<T>& operator*=(_vec4<T> other) { return Mul(other); }
-	inline _vec4<T>& operator/=(_vec4<T> other) { return Div(other); }
+	inline _vec3<T> operator+(_vec3<T> other) const { return _vec3<T>(*this).Add(other); }
+	inline _vec3<T> operator-(_vec3<T> other) const { return _vec3<T>(*this).Sub(other); }
+	inline _vec3<T> operator*(_vec3<T> other) const { return _vec3<T>(*this).Mul(other); }
+	inline _vec3<T> operator/(_vec3<T> other) const { return _vec3<T>(*this).Div(other); }
+	inline _vec3<T>& operator+=(_vec3<T> other) { return Add(other); }
+	inline _vec3<T>& operator-=(_vec3<T> other) { return Sub(other); }
+	inline _vec3<T>& operator*=(_vec3<T> other) { return Mul(other); }
+	inline _vec3<T>& operator/=(_vec3<T> other) { return Div(other); }
 
-	inline _vec4<T> operator+(T other) const { return _vec4<T>(*this).Add(other); }
-	inline _vec4<T> operator-(T other) const { return _vec4<T>(*this).Sub(other); }
-	inline _vec4<T> operator*(T other) const { return _vec4<T>(*this).Mul(other); }
-	inline _vec4<T> operator/(T other) const { return _vec4<T>(*this).Div(other); }
-	inline _vec4<T>& operator+=(T other) { return Add(other); }
-	inline _vec4<T>& operator-=(T other) { return Sub(other); }
-	inline _vec4<T>& operator*=(T other) { return Mul(other); }
-	inline _vec4<T>& operator/=(T other) { return Div(other); }
+	inline _vec3<T> operator+(T other) const { return _vec3<T>(*this).Add(other); }
+	inline _vec3<T> operator-(T other) const { return _vec3<T>(*this).Sub(other); }
+	inline _vec3<T> operator*(T other) const { return _vec3<T>(*this).Mul(other); }
+	inline _vec3<T> operator/(T other) const { return _vec3<T>(*this).Div(other); }
+	inline _vec3<T>& operator+=(T other) { return Add(other); }
+	inline _vec3<T>& operator-=(T other) { return Sub(other); }
+	inline _vec3<T>& operator*=(T other) { return Mul(other); }
+	inline _vec3<T>& operator/=(T other) { return Div(other); }
 };
 
 
 #pragma region float
-#ifndef GML_VEC4_SSE
+#ifndef GML_VEC3_SSE
 
-_vec4<float> _vec4<float>::Normalize() const {
-	_vec4<float> tmp;
+_vec3<float> _vec3<float>::Normalize() const {
+	_vec3<float> tmp;
 	__m128 v = _mm_load_ps(&x);
 	__m128 res = _mm_mul_ps(v, v);
 
 	res = _mm_hadd_ps(res, res);
 	res = _mm_hadd_ps(res, res);
 	res = _mm_sqrt_ss(res);
-	
+
 	res = _mm_div_ps(v, res);
-	
+
 	_mm_store_ps(&tmp.x, res);
 
 	return tmp;
 }
 
-float _vec4<float>::Dot(_vec4<float> other) const {
+float _vec3<float>::Dot(_vec3<float> other) const {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -98,7 +97,7 @@ float _vec4<float>::Dot(_vec4<float> other) const {
 	return res.m128_f32[0];
 }
 
-_vec4<float>& _vec4<float>::Add(_vec4<float> other) {
+_vec3<float>& _vec3<float>::Add(_vec3<float> other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -109,7 +108,7 @@ _vec4<float>& _vec4<float>::Add(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Sub(_vec4<float> other) {
+_vec3<float>& _vec3<float>::Sub(_vec3<float> other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -120,7 +119,7 @@ _vec4<float>& _vec4<float>::Sub(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Mul(_vec4<float> other) {
+_vec3<float>& _vec3<float>::Mul(_vec3<float> other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -131,7 +130,7 @@ _vec4<float>& _vec4<float>::Mul(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Div(_vec4<float> other) {
+_vec3<float>& _vec3<float>::Div(_vec3<float> other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -142,7 +141,7 @@ _vec4<float>& _vec4<float>::Div(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Add(float other) {
+_vec3<float>& _vec3<float>::Add(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
@@ -154,7 +153,7 @@ _vec4<float>& _vec4<float>::Add(float other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Sub(float other) {
+_vec3<float>& _vec3<float>::Sub(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
@@ -166,7 +165,7 @@ _vec4<float>& _vec4<float>::Sub(float other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Mul(float other) {
+_vec3<float>& _vec3<float>::Mul(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
@@ -178,7 +177,7 @@ _vec4<float>& _vec4<float>::Mul(float other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Div(float other) {
+_vec3<float>& _vec3<float>::Div(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
@@ -196,10 +195,10 @@ _vec4<float>& _vec4<float>::Div(float other) {
 
 #pragma region double
 
-#ifndef GML_VEC4D_NO_SSE
+#ifndef GML_VEC3D_NO_SSE
 
-_vec4<double> _vec4<double>::Normalize() const {
-	_vec4<double> tmp;
+_vec3<double> _vec3<double>::Normalize() const {
+	_vec3<double> tmp;
 	__m256d v = _mm256_load_pd(&x);
 	__m256d res = _mm256_mul_pd(v, v);
 
@@ -214,7 +213,7 @@ _vec4<double> _vec4<double>::Normalize() const {
 	return tmp;
 }
 
-double _vec4<double>::Dot(_vec4<double> other) const {
+double _vec3<double>::Dot(_vec3<double> other) const {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -226,7 +225,7 @@ double _vec4<double>::Dot(_vec4<double> other) const {
 	return res.m256d_f64[0];
 }
 
-_vec4<double>& _vec4<double>::Add(_vec4<double> other) {
+_vec3<double>& _vec3<double>::Add(_vec3<double> other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -237,7 +236,7 @@ _vec4<double>& _vec4<double>::Add(_vec4<double> other) {
 	return *this;
 }
 
-_vec4<double>& _vec4<double>::Sub(_vec4<double> other) {
+_vec3<double>& _vec3<double>::Sub(_vec3<double> other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -248,7 +247,7 @@ _vec4<double>& _vec4<double>::Sub(_vec4<double> other) {
 	return *this;
 }
 
-_vec4<double>& _vec4<double>::Mul(_vec4<double> other) {
+_vec3<double>& _vec3<double>::Mul(_vec3<double> other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -259,7 +258,7 @@ _vec4<double>& _vec4<double>::Mul(_vec4<double> other) {
 	return *this;
 }
 
-_vec4<double>& _vec4<double>::Div(_vec4<double> other) {
+_vec3<double>& _vec3<double>::Div(_vec3<double> other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -274,48 +273,48 @@ _vec4<double>& _vec4<double>::Div(_vec4<double> other) {
 
 #pragma region int32
 
-#ifndef GML_VEC4I_NO_SSE
+#ifndef GML_VEC3I_NO_SSE
 
-_vec4<int>& _vec4<int>::Add(_vec4<int> other) {
-	__m128i v1 = _mm_load_si128((__m128i*)&x);
-	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+_vec3<int>& _vec3<int>::Add(_vec3<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*) & x);
+	__m128i v2 = _mm_load_si128((__m128i*) & other.x);
 
 	__m128i res = _mm_add_epi32(v1, v2);
 
-	_mm_store_si128((__m128i*)&x, res);
+	_mm_store_si128((__m128i*) & x, res);
 
 	return *this;
 }
 
-_vec4<int>& _vec4<int>::Sub(_vec4<int> other) {
-	__m128i v1 = _mm_load_si128((__m128i*)&x);
-	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+_vec3<int>& _vec3<int>::Sub(_vec3<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*) & x);
+	__m128i v2 = _mm_load_si128((__m128i*) & other.x);
 
 	__m128i res = _mm_sub_epi32(v1, v2);
 
-	_mm_store_si128((__m128i*)&x, res);
+	_mm_store_si128((__m128i*) & x, res);
 
 	return *this;
 }
 
-_vec4<int>& _vec4<int>::Mul(_vec4<int> other) {
-	__m128i v1 = _mm_load_si128((__m128i*)&x);
-	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+_vec3<int>& _vec3<int>::Mul(_vec3<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*) & x);
+	__m128i v2 = _mm_load_si128((__m128i*) & other.x);
 
 	__m128i res = _mm_mul_epi32(v1, v2);
 
-	_mm_store_si128((__m128i*)&x, res);
+	_mm_store_si128((__m128i*) & x, res);
 
 	return *this;
 }
 
-_vec4<int>& _vec4<int>::Div(_vec4<int> other) {
-	__m128i v1 = _mm_load_si128((__m128i*)&x);
-	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
+_vec3<int>& _vec3<int>::Div(_vec3<int> other) {
+	__m128i v1 = _mm_load_si128((__m128i*) & x);
+	__m128i v2 = _mm_load_si128((__m128i*) & other.x);
 
 	__m128i res = _mm_div_epi32(v1, v2);
 
-	_mm_store_si128((__m128i*)&x, res);
+	_mm_store_si128((__m128i*) & x, res);
 
 	return *this;
 }
@@ -323,6 +322,6 @@ _vec4<int>& _vec4<int>::Div(_vec4<int> other) {
 #endif
 #pragma endregion
 
-typedef _vec4<float> vec4;
-typedef _vec4<double> vec4d;
-typedef _vec4<int> vec4i;
+typedef _vec3<float> vec3;
+typedef _vec3<double> vec3d;
+typedef _vec3<int> vec3i; 
