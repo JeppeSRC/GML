@@ -44,7 +44,7 @@ public:
 
 
 	_vec3<T> Normalize() const { float a = sqrt(x * x + y * y + z * z); return _vec3<T>(x / a, y / a, z / a); }
-	T Dot(_vec3<T> other) const { return x * other.x + y * other.y + z * other.z; }
+	T Dot(const _vec3<T>& other) const { return x * other.x + y * other.y + z * other.z; }
 
 	inline _vec3<T> operator+(const _vec3<T>& other) const { return _vec3<T>(*this).Add(other); }
 	inline _vec3<T> operator-(const _vec3<T>& other) const { return _vec3<T>(*this).Sub(other); }

@@ -45,7 +45,7 @@ public:
 
 
 	_vec4<T> Normalize() const { float a = sqrt(x * x + y * y + z * z + w * w); return _vec4<T>(x / a, y / a, z / a, w / a); }
-	T Dot(_vec4<T> other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
+	T Dot(const _vec4<T>& other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
 
 	inline _vec4<T> operator+(const _vec4<T>& other) const { return _vec4<T>(*this).Add(other); }
 	inline _vec4<T> operator-(const _vec4<T>& other) const { return _vec4<T>(*this).Sub(other); }
@@ -145,7 +145,6 @@ _vec4<float>& _vec4<float>::Div(const _vec4<float>& other) {
 _vec4<float>& _vec4<float>::Add(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
 
 	__m128 res = _mm_add_ps(v1, v2);
 
@@ -157,7 +156,6 @@ _vec4<float>& _vec4<float>::Add(float other) {
 _vec4<float>& _vec4<float>::Sub(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
 
 	__m128 res = _mm_sub_ps(v1, v2);
 
@@ -169,7 +167,6 @@ _vec4<float>& _vec4<float>::Sub(float other) {
 _vec4<float>& _vec4<float>::Mul(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
 
 	__m128 res = _mm_mul_ps(v1, v2);
 
@@ -181,7 +178,6 @@ _vec4<float>& _vec4<float>::Mul(float other) {
 _vec4<float>& _vec4<float>::Div(float other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
 
 	__m128 res = _mm_div_ps(v1, v2);
 
