@@ -218,8 +218,6 @@ _vec3<float>& _vec3<float>::Add(float other) {
 	}
 
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
-
 	__m128 res = _mm_add_ps(v1, v2);
 
 	_mm_store_ps(&x, res);
@@ -240,8 +238,6 @@ _vec3<float>& _vec3<float>::Sub(float other) {
 	}
 
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
-
 	__m128 res = _mm_sub_ps(v1, v2);
 
 	_mm_store_ps(&x, res);
@@ -262,8 +258,6 @@ _vec3<float>& _vec3<float>::Mul(float other) {
 	}
 
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
-
 	__m128 res = _mm_mul_ps(v1, v2);
 
 	_mm_store_ps(&x, res);
@@ -284,8 +278,6 @@ _vec3<float>& _vec3<float>::Div(float other) {
 	}
 
 	__m128 v2 = _mm_set_ps1(other);
-	v2 = _mm_shuffle_ps(v2, v2, 0);
-
 	__m128 res = _mm_div_ps(v1, v2);
 
 	_mm_store_ps(&x, res);
