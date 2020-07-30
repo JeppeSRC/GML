@@ -33,10 +33,10 @@ public:
 	_vec4(T init = 0) : x(init), y(init), z(init), w(init) {}
 	_vec4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
-	_vec4<T>& Add(_vec4<T> other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
-	_vec4<T>& Sub(_vec4<T> other) { x -= other.x; y -= other.y; z -= other.z; w -= other.w; return *this; }
-	_vec4<T>& Mul(_vec4<T> other) { x *= other.x; y *= other.y; z *= other.z; w *= other.w; return *this; }
-	_vec4<T>& Div(_vec4<T> other) { x /= other.x; y /= other.y; z /= other.z; w /= other.w; return *this; }
+	_vec4<T>& Add(const _vec4<T>& other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
+	_vec4<T>& Sub(const _vec4<T>& other) { x -= other.x; y -= other.y; z -= other.z; w -= other.w; return *this; }
+	_vec4<T>& Mul(const _vec4<T>& other) { x *= other.x; y *= other.y; z *= other.z; w *= other.w; return *this; }
+	_vec4<T>& Div(const _vec4<T>& other) { x /= other.x; y /= other.y; z /= other.z; w /= other.w; return *this; }
 
 	_vec4<T>& Add(T other) { x += T; y += T; z += T; w += T; return *this; }
 	_vec4<T>& Sub(T other) { x -= T; y -= T; z -= T; w -= T; return *this; }
@@ -47,14 +47,14 @@ public:
 	_vec4<T> Normalize() const { float a = sqrt(x * x + y * y + z * z + w * w); return _vec4<T>(x / a, y / a, z / a, w / a); }
 	T Dot(_vec4<T> other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
 
-	inline _vec4<T> operator+(_vec4<T> other) const { return _vec4<T>(*this).Add(other); }
-	inline _vec4<T> operator-(_vec4<T> other) const { return _vec4<T>(*this).Sub(other); }
-	inline _vec4<T> operator*(_vec4<T> other) const { return _vec4<T>(*this).Mul(other); }
-	inline _vec4<T> operator/(_vec4<T> other) const { return _vec4<T>(*this).Div(other); }
-	inline _vec4<T>& operator+=(_vec4<T> other) { return Add(other); }
-	inline _vec4<T>& operator-=(_vec4<T> other) { return Sub(other); }
-	inline _vec4<T>& operator*=(_vec4<T> other) { return Mul(other); }
-	inline _vec4<T>& operator/=(_vec4<T> other) { return Div(other); }
+	inline _vec4<T> operator+(const _vec4<T>& other) const { return _vec4<T>(*this).Add(other); }
+	inline _vec4<T> operator-(const _vec4<T>& other) const { return _vec4<T>(*this).Sub(other); }
+	inline _vec4<T> operator*(const _vec4<T>& other) const { return _vec4<T>(*this).Mul(other); }
+	inline _vec4<T> operator/(const _vec4<T>& other) const { return _vec4<T>(*this).Div(other); }
+	inline _vec4<T>& operator+=(const _vec4<T>& other) { return Add(other); }
+	inline _vec4<T>& operator-=(const _vec4<T>& other) { return Sub(other); }
+	inline _vec4<T>& operator*=(const _vec4<T>& other) { return Mul(other); }
+	inline _vec4<T>& operator/=(const _vec4<T>& other) { return Div(other); }
 
 	inline _vec4<T> operator+(T other) const { return _vec4<T>(*this).Add(other); }
 	inline _vec4<T> operator-(T other) const { return _vec4<T>(*this).Sub(other); }
@@ -86,7 +86,7 @@ _vec4<float> _vec4<float>::Normalize() const {
 	return tmp;
 }
 
-float _vec4<float>::Dot(_vec4<float> other) const {
+float _vec4<float>::Dot(const _vec4<float>& other) const {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -98,7 +98,7 @@ float _vec4<float>::Dot(_vec4<float> other) const {
 	return res.m128_f32[0];
 }
 
-_vec4<float>& _vec4<float>::Add(_vec4<float> other) {
+_vec4<float>& _vec4<float>::Add(const _vec4<float>& other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -109,7 +109,7 @@ _vec4<float>& _vec4<float>::Add(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Sub(_vec4<float> other) {
+_vec4<float>& _vec4<float>::Sub(const _vec4<float>& other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -120,7 +120,7 @@ _vec4<float>& _vec4<float>::Sub(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Mul(_vec4<float> other) {
+_vec4<float>& _vec4<float>::Mul(const _vec4<float>& other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -131,7 +131,7 @@ _vec4<float>& _vec4<float>::Mul(_vec4<float> other) {
 	return *this;
 }
 
-_vec4<float>& _vec4<float>::Div(_vec4<float> other) {
+_vec4<float>& _vec4<float>::Div(const _vec4<float>& other) {
 	__m128 v1 = _mm_load_ps(&x);
 	__m128 v2 = _mm_load_ps(&other.x);
 
@@ -214,7 +214,7 @@ _vec4<double> _vec4<double>::Normalize() const {
 	return tmp;
 }
 
-double _vec4<double>::Dot(_vec4<double> other) const {
+double _vec4<double>::Dot(const _vec4<double>& other) const {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -226,7 +226,7 @@ double _vec4<double>::Dot(_vec4<double> other) const {
 	return res.m256d_f64[0];
 }
 
-_vec4<double>& _vec4<double>::Add(_vec4<double> other) {
+_vec4<double>& _vec4<double>::Add(const _vec4<double>& other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -237,7 +237,7 @@ _vec4<double>& _vec4<double>::Add(_vec4<double> other) {
 	return *this;
 }
 
-_vec4<double>& _vec4<double>::Sub(_vec4<double> other) {
+_vec4<double>& _vec4<double>::Sub(const _vec4<double>& other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -248,7 +248,7 @@ _vec4<double>& _vec4<double>::Sub(_vec4<double> other) {
 	return *this;
 }
 
-_vec4<double>& _vec4<double>::Mul(_vec4<double> other) {
+_vec4<double>& _vec4<double>::Mul(const _vec4<double>& other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -259,7 +259,7 @@ _vec4<double>& _vec4<double>::Mul(_vec4<double> other) {
 	return *this;
 }
 
-_vec4<double>& _vec4<double>::Div(_vec4<double> other) {
+_vec4<double>& _vec4<double>::Div(const _vec4<double>& other) {
 	__m256d v1 = _mm256_load_pd(&x);
 	__m256d v2 = _mm256_load_pd(&other.x);
 
@@ -276,7 +276,7 @@ _vec4<double>& _vec4<double>::Div(_vec4<double> other) {
 
 #ifndef GML_VEC4I_NO_SSE
 
-_vec4<int>& _vec4<int>::Add(_vec4<int> other) {
+_vec4<int>& _vec4<int>::Add(const _vec4<int>& other) {
 	__m128i v1 = _mm_load_si128((__m128i*)&x);
 	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
 
@@ -287,7 +287,7 @@ _vec4<int>& _vec4<int>::Add(_vec4<int> other) {
 	return *this;
 }
 
-_vec4<int>& _vec4<int>::Sub(_vec4<int> other) {
+_vec4<int>& _vec4<int>::Sub(const _vec4<int>& other) {
 	__m128i v1 = _mm_load_si128((__m128i*)&x);
 	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
 
@@ -298,7 +298,7 @@ _vec4<int>& _vec4<int>::Sub(_vec4<int> other) {
 	return *this;
 }
 
-_vec4<int>& _vec4<int>::Mul(_vec4<int> other) {
+_vec4<int>& _vec4<int>::Mul(const _vec4<int>& other) {
 	__m128i v1 = _mm_load_si128((__m128i*)&x);
 	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
 
@@ -309,7 +309,7 @@ _vec4<int>& _vec4<int>::Mul(_vec4<int> other) {
 	return *this;
 }
 
-_vec4<int>& _vec4<int>::Div(_vec4<int> other) {
+_vec4<int>& _vec4<int>::Div(const _vec4<int>& other) {
 	__m128i v1 = _mm_load_si128((__m128i*)&x);
 	__m128i v2 = _mm_load_si128((__m128i*)&other.x);
 
