@@ -71,7 +71,17 @@ public:
 
 _vec3<float> _vec3<float>::Normalize() const {
 	_vec3<float> tmp;
-	__m128 v = _mm_load_ps(&x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v = _mm_load_ps(&x);
+	} else {
+		v = _mm_maskload_ps(&x, *(__m128i*) & mask);
+	}
+
 	__m128 res = _mm_mul_ps(v, v);
 
 	res = _mm_hadd_ps(res, res);
@@ -80,13 +90,28 @@ _vec3<float> _vec3<float>::Normalize() const {
 
 	res = _mm_div_ps(v, res);
 
-	_mm_store_ps(&tmp.x, res);
+	if constexpr (alignment) {
+		_mm_store_ps(&tmp.x, res);
+	} else {
+		_mm_maskstore_ps(&tmp.x, *(__m128i*)&mask, res);
+	}
 
 	return tmp;
 }
 
 float _vec3<float>::Dot(_vec3<float> other) const {
-	__m128 v1 = _mm_load_ps(&x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1, v2;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+		v2 = _mm_load_ps(&other.x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*)&mask);
+		v2 = _mm_maskload_ps(&other.x, *(__m128i*)&mask);
+	}
 	__m128 v2 = _mm_load_ps(&other.x);
 
 	__m128 res = _mm_mul_ps(v1, v2);
@@ -98,8 +123,18 @@ float _vec3<float>::Dot(_vec3<float> other) const {
 }
 
 _vec3<float>& _vec3<float>::Add(_vec3<float> other) {
-	__m128 v1 = _mm_load_ps(&x);
-	__m128 v2 = _mm_load_ps(&other.x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1, v2;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+		v2 = _mm_load_ps(&other.x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+		v2 = _mm_maskload_ps(&other.x, *(__m128i*) & mask);
+	}
 
 	__m128 res = _mm_add_ps(v1, v2);
 
@@ -109,8 +144,18 @@ _vec3<float>& _vec3<float>::Add(_vec3<float> other) {
 }
 
 _vec3<float>& _vec3<float>::Sub(_vec3<float> other) {
-	__m128 v1 = _mm_load_ps(&x);
-	__m128 v2 = _mm_load_ps(&other.x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1, v2;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+		v2 = _mm_load_ps(&other.x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+		v2 = _mm_maskload_ps(&other.x, *(__m128i*) & mask);
+	}
 
 	__m128 res = _mm_sub_ps(v1, v2);
 
@@ -120,8 +165,18 @@ _vec3<float>& _vec3<float>::Sub(_vec3<float> other) {
 }
 
 _vec3<float>& _vec3<float>::Mul(_vec3<float> other) {
-	__m128 v1 = _mm_load_ps(&x);
-	__m128 v2 = _mm_load_ps(&other.x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1, v2;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+		v2 = _mm_load_ps(&other.x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+		v2 = _mm_maskload_ps(&other.x, *(__m128i*) & mask);
+	}
 
 	__m128 res = _mm_mul_ps(v1, v2);
 
@@ -131,8 +186,18 @@ _vec3<float>& _vec3<float>::Mul(_vec3<float> other) {
 }
 
 _vec3<float>& _vec3<float>::Div(_vec3<float> other) {
-	__m128 v1 = _mm_load_ps(&x);
-	__m128 v2 = _mm_load_ps(&other.x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1, v2;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+		v2 = _mm_load_ps(&other.x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+		v2 = _mm_maskload_ps(&other.x, *(__m128i*) & mask);
+	}
 
 	__m128 res = _mm_div_ps(v1, v2);
 
@@ -142,7 +207,17 @@ _vec3<float>& _vec3<float>::Div(_vec3<float> other) {
 }
 
 _vec3<float>& _vec3<float>::Add(float other) {
-	__m128 v1 = _mm_load_ps(&x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+	}
+
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
 
@@ -154,7 +229,17 @@ _vec3<float>& _vec3<float>::Add(float other) {
 }
 
 _vec3<float>& _vec3<float>::Sub(float other) {
-	__m128 v1 = _mm_load_ps(&x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+	}
+
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
 
@@ -166,7 +251,17 @@ _vec3<float>& _vec3<float>::Sub(float other) {
 }
 
 _vec3<float>& _vec3<float>::Mul(float other) {
-	__m128 v1 = _mm_load_ps(&x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+	}
+
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
 
@@ -178,7 +273,17 @@ _vec3<float>& _vec3<float>::Mul(float other) {
 }
 
 _vec3<float>& _vec3<float>::Div(float other) {
-	__m128 v1 = _mm_load_ps(&x);
+	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
+	__m128 v1;
+
+	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+
+	if constexpr (alignment) {
+		v1 = _mm_load_ps(&x);
+	} else {
+		v1 = _mm_maskload_ps(&x, *(__m128i*) & mask);
+	}
+
 	__m128 v2 = _mm_set_ps1(other);
 	v2 = _mm_shuffle_ps(v2, v2, 0);
 
