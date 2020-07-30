@@ -35,5 +35,29 @@
     <ClInclude Include="include\vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\impl\vec3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec3f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec3i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec3l.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec4d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec4f.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec4i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\vec4l.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

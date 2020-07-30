@@ -97,6 +97,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\gml.h" />
+    <ClInclude Include="include\impl\vec3d.h" />
+    <ClInclude Include="include\impl\vec3f.h" />
+    <ClInclude Include="include\impl\vec3i.h" />
+    <ClInclude Include="include\impl\vec3l.h" />
+    <ClInclude Include="include\impl\vec4d.h" />
+    <ClInclude Include="include\impl\vec4f.h" />
+    <ClInclude Include="include\impl\vec4i.h" />
+    <ClInclude Include="include\impl\vec4l.h" />
     <ClInclude Include="include\mat.h" />
     <ClInclude Include="include\vec.h" />
     <ClInclude Include="include\vec3.h" />
