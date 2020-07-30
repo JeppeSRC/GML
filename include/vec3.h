@@ -112,8 +112,7 @@ float _vec3<float>::Dot(_vec3<float> other) const {
 		v1 = _mm_maskload_ps(&x, *(__m128i*)&mask);
 		v2 = _mm_maskload_ps(&other.x, *(__m128i*)&mask);
 	}
-	__m128 v2 = _mm_load_ps(&other.x);
-
+	
 	__m128 res = _mm_mul_ps(v1, v2);
 
 	res = _mm_hadd_ps(res, res);
