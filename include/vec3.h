@@ -26,6 +26,8 @@ SOFTWARE.
 
 template<typename T>
 class alignas(CalcVecAlignment<T>(3)) _vec3 {
+private:
+	typedef _vec3<T> t;
 public:
 	T x, y, z;
 
@@ -74,7 +76,7 @@ _vec3<float> _vec3<float>::Normalize() const {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v = _mm_load_ps(&x);
@@ -103,7 +105,7 @@ float _vec3<float>::Dot(const _vec3<float>& other) const {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1, v2;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -125,7 +127,7 @@ _vec3<float>& _vec3<float>::Add(const _vec3<float>& other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1, v2;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -146,7 +148,7 @@ _vec3<float>& _vec3<float>::Sub(const _vec3<float>& other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1, v2;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -167,7 +169,7 @@ _vec3<float>& _vec3<float>::Mul(const _vec3<float>& other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1, v2;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -188,7 +190,7 @@ _vec3<float>& _vec3<float>::Div(const _vec3<float>& other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1, v2;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -209,7 +211,7 @@ _vec3<float>& _vec3<float>::Add(float other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -229,7 +231,7 @@ _vec3<float>& _vec3<float>::Sub(float other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -249,7 +251,7 @@ _vec3<float>& _vec3<float>::Mul(float other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
@@ -269,7 +271,7 @@ _vec3<float>& _vec3<float>::Div(float other) {
 	__m128 mask = _mm_set_ps(0, -1.0f, -1.0f, -1.0f);
 	__m128 v1;
 
-	constexpr bool alignment = alignof(_vec3<float>) % 16 == 0;
+	constexpr bool alignment = alignof(t) % 16 == 0;
 
 	if constexpr (alignment) {
 		v1 = _mm_load_ps(&x);
