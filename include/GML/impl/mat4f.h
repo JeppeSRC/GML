@@ -52,9 +52,9 @@ _mat4<float> _mat4<float>::Multiply(const _mat4<float>& other) const {
 
 _vec4<float> _mat4<float>::Multiply(const _vec4<float>& other) const {
 	__m128 col0 = _mm_load_ps(data);
-	__m128 col1 = _mm_load_ps(data + 16);
-	__m128 col2 = _mm_load_ps(data + 32);
-	__m128 col3 = _mm_load_ps(data + 48);
+	__m128 col1 = _mm_load_ps(data + 4);
+	__m128 col2 = _mm_load_ps(data + 8);
+	__m128 col3 = _mm_load_ps(data + 12);
 
 	__m128 res = _mm_mul_ps(col0, _mm_set_ps1(other.x));
 	res = _mm_fmadd_ps(col1, _mm_set_ps1(other.y), res);

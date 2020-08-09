@@ -55,7 +55,7 @@ public:
 				T r2 = data[2 * 4 + r] * other.data[c * 4 + 2];
 				T r3 = data[3 * 4 + r] * other.data[c * 4 + 3];
 
-				res.data[r * 4 + c] = (r0 + r1) + (r2 + r3);
+				res.data[c * 4 + r] = (r0 + r1) + (r2 + r3);
 			}
 		}
 
