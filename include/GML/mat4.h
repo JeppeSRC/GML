@@ -41,8 +41,8 @@ public:
 		data[15] = diagonal;
 	}
 
-	inline T Get(size_t row, size_t col) const { return data[col * 4 + row]; }
-	inline void Set(size_t row, size_t col, T value) { data[col * 4 + row] = value; }
+	inline T Get(size_t col, size_t row) const { return data[col * 4 + row]; }
+	inline void Set(size_t col, size_t row, T value) { data[col * 4 + row] = value; }
 
 	_mat4<T> Multiply(const _mat4<T>& other) const
 	{
@@ -63,10 +63,10 @@ public:
 	}
 
 	_vec4<T> Multiply(const _vec4<T>& other) const {
-		T x = Get(0, 0) * other.x + Get(0, 1) * other.y + Get(0, 2) * other.z + Get(0, 3) * other.w;
-		T y = Get(1, 0) * other.x + Get(1, 1) * other.y + Get(1, 2) * other.z + Get(1, 3) * other.w;
-		T z = Get(2, 0) * other.x + Get(2, 1) * other.y + Get(2, 2) * other.z + Get(2, 3) * other.w;
-		T w = Get(3, 0) * other.x + Get(3, 1) * other.y + Get(3, 2) * other.z + Get(3, 3) * other.w;
+		T x = Get(0, 0) * other.x + Get(1, 0) * other.y + Get(2, 0) * other.z + Get(3, 0) * other.w;
+		T y = Get(0, 1) * other.x + Get(1, 1) * other.y + Get(2, 1) * other.z + Get(3, 1) * other.w;
+		T z = Get(0, 2) * other.x + Get(1, 2) * other.y + Get(2, 2) * other.z + Get(3, 2) * other.w;
+		T w = Get(0, 3) * other.x + Get(1, 3) * other.y + Get(2, 3) * other.z + Get(3, 3) * other.w;
 
 		return _vec4<T>(x, y, z, w);
 	}
