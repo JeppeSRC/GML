@@ -25,3 +25,19 @@ SOFTWARE.
 #pragma once
 
 #include "mat4.h"
+
+namespace gml {
+
+template<typename T = float>
+_mat4<T> Translate(const _vec3<T>& translation) {
+	_mat4<T> res(1);
+	
+	res.Set(0, 3, translation.x);
+	res.Set(1, 3, translation.y);
+	res.Set(2, 3, translation.z);
+	res.Set(3, 3, 1);
+
+	return res;
+}
+
+}
