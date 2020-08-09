@@ -20,49 +20,49 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\gml.h">
+    <ClInclude Include="include\GML\vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\mat.h">
+    <ClInclude Include="include\GML\impl\mat4f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\vec.h">
+    <ClInclude Include="include\GML\impl\vec3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\vec4.h">
+    <ClInclude Include="include\GML\impl\vec3f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\vec3.h">
+    <ClInclude Include="include\GML\impl\vec3i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec3d.h">
+    <ClInclude Include="include\GML\impl\vec3l.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec3f.h">
+    <ClInclude Include="include\GML\impl\vec4d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec3i.h">
+    <ClInclude Include="include\GML\impl\vec4f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec3l.h">
+    <ClInclude Include="include\GML\impl\vec4i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec4d.h">
+    <ClInclude Include="include\GML\impl\vec4l.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec4f.h">
+    <ClInclude Include="include\GML\gml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec4i.h">
+    <ClInclude Include="include\GML\mat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\vec4l.h">
+    <ClInclude Include="include\GML\mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\mat4f.h">
+    <ClInclude Include="include\GML\vec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\mat4.h">
+    <ClInclude Include="include\GML\vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
