@@ -40,4 +40,15 @@ _mat4<T> Translate(const _vec3<T>& translation) {
 	return res;
 }
 
+template<typename T = float>
+_mat4<T> Scale(const _vec3<T>& other) {
+	_mat4<T> res(1);
+
+	res.Set(0, 0, other.x);
+	res.Set(1, 1, other.y);
+	res.Set(2, 2, other.z);
+
+	return res;
+}
+
 }
