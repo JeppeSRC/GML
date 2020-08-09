@@ -24,5 +24,5 @@ SOFTWARE.
 
 #pragma once
 
-#include "mat.h"
 #include "vec.h"
+#include "mat.h"
