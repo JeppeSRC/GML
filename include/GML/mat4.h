@@ -25,6 +25,8 @@ SOFTWARE.
 #pragma once
 #include <memory>
 
+namespace gml {
+
 template<typename T>
 class alignas(64) _mat4 {
 public:
@@ -83,3 +85,5 @@ public:
 #include "impl/mat4f.h"
 
 typedef _mat4<float> mat4;
+
+}

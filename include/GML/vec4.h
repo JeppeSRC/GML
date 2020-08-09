@@ -24,6 +24,7 @@ SOFTWARE.
 
 #pragma once
 
+namespace gml {
 
 template<typename T>
 class alignas(CalcVecAlignment<T>(4)) _vec4 {
@@ -82,3 +83,5 @@ typedef _vec4<float> vec4;
 typedef _vec4<double> vec4d;
 typedef _vec4<int> vec4i;
 typedef _vec4<long long> vec4l;
+
+}
